@@ -1,6 +1,6 @@
 package com.khush.library.internal
 
-import com.library.utils.getUniqueId
+import com.khush.library.utils.getUniqueId
 import kotlinx.coroutines.Job
 
 class DownloadRequest private constructor(
