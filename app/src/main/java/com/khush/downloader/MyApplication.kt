@@ -1,13 +1,13 @@
 package com.khush.downloader
 
 import android.app.Application
-import com.khush.library.Downloader
+import com.khush.library.Networker
 
 class MyApplication: Application() {
 
-    lateinit var downloader: Downloader
+    lateinit var networker: Networker
     override fun onCreate() {
         super.onCreate()
-        downloader = Downloader.create()
+        networker = Networker.create()
     }
 }

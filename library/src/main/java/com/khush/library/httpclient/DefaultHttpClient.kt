@@ -1,9 +1,9 @@
 package com.khush.library.httpclient
 
-import com.khush.library.internal.DownloadRequest
+import com.khush.library.internal.NetworkRequest
 
 class DefaultHttpClient: HttpClient {
-    override fun connect(req: DownloadRequest) {
+    override fun connect(req: NetworkRequest) {
 
     }
 }

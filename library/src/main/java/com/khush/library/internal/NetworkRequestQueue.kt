@@ -1,24 +1,12 @@
 package com.khush.library.internal
 
-class DownloadRequestQueue(private val dispatcher: DownloadDispatcher) {
+class NetworkRequestQueue(private val dispatcher: NetworkDispatcher) {
 
-    private val idRequestMap: HashMap<Int, DownloadRequest> = hashMapOf()
+    private val idRequestMap: HashMap<Int, NetworkRequest> = hashMapOf()
 
-    fun enqueue(request: DownloadRequest): Int {
-        idRequestMap[request.downloadId] = request
+    fun enqueue(request: NetworkRequest): Int {
+        idRequestMap[request.networkId] = request
         return dispatcher.enqueue(request)
-    }
-
-    fun pause(id: Int) {
-        idRequestMap[id]?.let {
-            dispatcher.cancel(it)
-        }
-    }
-
-    fun resume(id: Int) {
-        idRequestMap[id]?.let {
-            dispatcher.enqueue(it)
-        }
     }
 
     fun cancel(id: Int) {
@@ -33,7 +21,7 @@ class DownloadRequestQueue(private val dispatcher: DownloadDispatcher) {
             it.tag == tag
         }
         for (req in requestsWithTag) {
-            cancel(req.downloadId)
+            cancel(req.networkId)
         }
     }
 

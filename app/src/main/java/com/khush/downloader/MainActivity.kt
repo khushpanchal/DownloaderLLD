@@ -8,8 +8,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val downloader = (application as MyApplication).downloader
-        val request = downloader.newBuilder("someUrl", "someDirPath", "someFileName")
+        val downloader = (application as MyApplication).networker
+        val request = downloader.newBuilder("someUrl")
             .readTimeout(10000)
             .connectTimeout(10000)
             .tag("someTag")
@@ -19,15 +19,8 @@ class MainActivity : AppCompatActivity() {
             onStart = {
                 //binding.textViewStatus.text = "onStart"
             },
-            onProgress = {
-                //binding.textViewProgress.text = "$it %"
-                //binding.progressBar.progress = it
-            },
-            onPause = {
-                //binding.textViewStatus.text = "onPause"
-            },
-            onCompleted = {
-                //binding.textViewStatus.text = "onCompleted"
+            onSuccess = {
+                //binding.textViewStatus.text = it
             },
             onError = {
                 //binding.textViewStatus.text = it

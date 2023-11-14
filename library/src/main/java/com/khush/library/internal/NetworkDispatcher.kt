@@ -7,31 +7,25 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class DownloadDispatcher(private val httpClient: HttpClient) {
+class NetworkDispatcher(private val httpClient: HttpClient) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
-    fun enqueue(req: DownloadRequest): Int {
+    fun enqueue(req: NetworkRequest): Int {
         val job = scope.launch {
             execute(req)
         }
         req.job = job
-        return req.downloadId
+        return req.networkId
     }
 
-    private suspend fun execute(request: DownloadRequest) {
-        DownloadTask(httpClient, request).run (
+    private suspend fun execute(request: NetworkRequest) {
+        NetworkTask(httpClient, request).run (
             onStart = {
                 executeOnMainThread { request.onStart() }
             },
-            onProgress = {
-                executeOnMainThread { request.onProgress(it) }
-            },
-            onPause = {
-                executeOnMainThread { request.onPause() }
-            },
-            onCompleted = {
-                executeOnMainThread { request.onCompleted() }
+            onSuccess = {
+                executeOnMainThread { request.onSuccess(it) }
             },
             onError = {
                 executeOnMainThread { request.onError(it) }
@@ -45,7 +39,7 @@ class DownloadDispatcher(private val httpClient: HttpClient) {
         }
     }
 
-    fun cancel(req: DownloadRequest) {
+    fun cancel(req: NetworkRequest) {
         req.job.cancel()
     }
 

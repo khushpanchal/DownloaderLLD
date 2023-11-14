@@ -1,8 +1,8 @@
 package com.khush.library.httpclient
 
-import com.khush.library.internal.DownloadRequest
+import com.khush.library.internal.NetworkRequest
 
 interface HttpClient {
 
-    fun connect(req: DownloadRequest)
+    fun connect(req: NetworkRequest)
 }
