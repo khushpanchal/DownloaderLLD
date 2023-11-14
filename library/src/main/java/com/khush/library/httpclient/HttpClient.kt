@@ -1,6 +1,8 @@
 package com.khush.library.httpclient
 
-interface HttpClient: Cloneable {
+import com.khush.library.internal.DownloadRequest
 
-    fun connect()
+interface HttpClient {
+
+    fun connect(req: DownloadRequest)
 }
